@@ -1,0 +1,26 @@
+
+cell.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+empty
+  rotate: false
+  xy: 1, 1
+  size: 82, 91
+  orig: 82, 91
+  offset: 0, 0
+  index: -1
+o
+  rotate: false
+  xy: 85, 1
+  size: 82, 91
+  orig: 82, 91
+  offset: 0, 0
+  index: -1
+x
+  rotate: false
+  xy: 169, 1
+  size: 82, 91
+  orig: 82, 91
+  offset: 0, 0
+  index: -1
