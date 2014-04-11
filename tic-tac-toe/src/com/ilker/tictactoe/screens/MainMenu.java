@@ -1,11 +1,5 @@
 package com.ilker.tictactoe.screens;
 
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenManager;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -28,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.esotericsoftware.tablelayout.Cell;
 import com.ilker.tictactoe.Assets;
 import com.ilker.tictactoe.TicTacToe;
 
@@ -39,10 +31,8 @@ public class MainMenu implements Screen{
 	private Skin skin;
 	private Table table;
 	private TextButton buttonPlay;
-	private BitmapFont white;
 	private BitmapFont blackFont;
 	private Label heading;
-	private TweenManager manager;
 	private SpriteBatch batch;
 	private Texture background;
 	private Sprite sprite;
@@ -64,7 +54,6 @@ public class MainMenu implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -80,7 +69,6 @@ public class MainMenu implements Screen{
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
-		//white = new BitmapFont(Gdx.files.internal("font/white.fnt"), false);
 		blackFont = Assets.manager.get(Assets.fontBlack);
 		
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
@@ -135,25 +123,21 @@ public class MainMenu implements Screen{
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -1,7 +1,6 @@
 package com.ilker.tictactoe;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.ilker.tictactoe.screens.Splash;
 
 public class TicTacToe extends Game {

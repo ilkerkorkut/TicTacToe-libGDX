@@ -1,5 +1,6 @@
 package com.ilker.tictactoe.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.ilker.tictactoe.Assets;
 
 public class ResultScreen implements Screen{
@@ -24,6 +27,7 @@ public class ResultScreen implements Screen{
 	private Table table;
 	private BitmapFont blackFont;
 	private Label heading;
+	private Label again;
 	private SpriteBatch batch;
 	private Texture background;
 	private Sprite sprite;
@@ -48,7 +52,6 @@ public class ResultScreen implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -60,7 +63,8 @@ public class ResultScreen implements Screen{
 		skin = new Skin(Gdx.files.internal("ui/gameSkin.json"),atlas);
 		blackFont = Assets.manager.get(Assets.fontBlack);
 		
-		heading = new Label("RESULT",skin);
+		heading = new Label("GAME RESULT",skin);
+		again = new Label("Click or Touch here to play again",skin);
 		batch = new SpriteBatch();
 		background = Assets.manager.get(Assets.background);
 		background.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -69,6 +73,13 @@ public class ResultScreen implements Screen{
 		sprite.setX(Gdx.graphics.getWidth() / 2 - (sprite.getWidth() / 2));
 		sprite.setY(Gdx.graphics.getHeight() / 2 - (sprite.getHeight() / 2));
 		
+		again.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+			}
+		});
+		
 		table = new Table(skin);
 		
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -76,32 +87,29 @@ public class ResultScreen implements Screen{
 		table.align(Align.center).align(Align.top).padTop(100);
 		
 		table.add(heading).right().padBottom(100).row();
-		table.add(winner);
+		table.add(winner).row();
+		table.add(again).padTop(100);
 		stage.addActor(table);
 		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		
 	}
 

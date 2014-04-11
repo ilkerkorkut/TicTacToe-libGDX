@@ -1,17 +1,17 @@
 package com.ilker.tictactoe.ai;
 
-public class Player {
-	
-	private int mark;
-	private int[] marks;
+import com.ilker.tictactoe.Board;
 
-	public int getMark(){
-		return mark;
+public abstract class Player {
+	private Player rival;
+	
+	public Player getRival() {
+		return rival;
+	}
+	public void setRival(Player rival) {
+		this.rival = rival;
 	}
 	
-	public void setMark(int[] marks){
-		this.marks = marks;
-	}
-	
-	
+	public abstract int play(Board b);
+
 }

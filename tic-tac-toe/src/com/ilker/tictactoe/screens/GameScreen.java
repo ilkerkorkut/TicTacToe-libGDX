@@ -1,12 +1,10 @@
 package com.ilker.tictactoe.screens;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,8 +24,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.ilker.tictactoe.Assets;
+import com.ilker.tictactoe.Board;
 import com.ilker.tictactoe.TicTacToe;
-import com.ilker.tictactoe.ai.ComputerAI;
+import com.ilker.tictactoe.ai.ComputerButtonControl;
+import com.ilker.tictactoe.ai.ComputerPlayer;
+import com.ilker.tictactoe.ai.HumanPlayer;
+import com.ilker.tictactoe.ai.Player;
 
 public class GameScreen implements Screen{
 
@@ -41,6 +43,10 @@ public class GameScreen implements Screen{
 	private Texture background;
 	private Sprite sprite;
 	private TicTacToe game;
+	
+	private static Player humanPlayer;
+	private static Player computerPlayer;
+	private static Board board;
 	
 	public GameScreen(TicTacToe game){
 		this.game = game;
@@ -74,7 +80,7 @@ public class GameScreen implements Screen{
 		skin = new Skin(Gdx.files.internal("ui/gameSkin.json"),atlas);
 		blackFont = Assets.manager.get(Assets.fontBlack);
 		
-		heading = new Label("PLAYING GAME",skin);
+		heading = new Label("You can't beat",skin);
 		batch = new SpriteBatch();
 		background = Assets.manager.get(Assets.background);
 		background.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -116,20 +122,32 @@ public class GameScreen implements Screen{
 		buttons.add(button7);buttons.add(button8);buttons.add(button9);
 		
 		final HashMap<Integer,TextButton> buttonsMap = new HashMap<Integer,TextButton>();
-		buttonsMap.put(1, button1);buttonsMap.put(2, button2);buttonsMap.put(3, button3);
-		buttonsMap.put(4, button4);buttonsMap.put(5, button5);buttonsMap.put(6, button6);
-		buttonsMap.put(7, button7);buttonsMap.put(8, button8);buttonsMap.put(9, button9);
+		buttonsMap.put(0, button1);buttonsMap.put(1, button2);buttonsMap.put(2, button3);
+		buttonsMap.put(3, button4);buttonsMap.put(4, button5);buttonsMap.put(5, button6);
+		buttonsMap.put(6, button7);buttonsMap.put(7, button8);buttonsMap.put(8, button9);
 		
-		final List<Integer> playerMoves = new ArrayList<Integer>();
-		final ComputerAI computer = new ComputerAI();
+		
+		humanPlayer = new HumanPlayer();
+		computerPlayer = new ComputerPlayer();
+		board = new Board();
+		board.setOpponents(humanPlayer, computerPlayer);
 		
 		button1.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button1.isDisabled()){
-					playerMoves.add(1);
-					buttonsMap.remove(button1);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(0, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button1.setDisabled(true);
 			}
@@ -139,9 +157,18 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button2.isDisabled()){
-					playerMoves.add(2);
-					buttonsMap.remove(button2);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(1, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button2.setDisabled(true);
 			}
@@ -151,9 +178,19 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button3.isDisabled()){
-					playerMoves.add(3);
-					buttonsMap.remove(button3);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(2, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+							
+						}
+					}
 				}
 				button3.setDisabled(true);
 			}
@@ -163,9 +200,18 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button4.isDisabled()){
-					playerMoves.add(4);
-					buttonsMap.remove(button4);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(3, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button4.setDisabled(true);
 			}
@@ -175,9 +221,18 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button5.isDisabled()){
-					playerMoves.add(5);
-					buttonsMap.remove(button5);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(4, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button5.setDisabled(true);
 			}
@@ -187,9 +242,18 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button6.isDisabled()){
-					playerMoves.add(6);
-					buttonsMap.remove(button6);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(5, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button6.setDisabled(true);
 			}
@@ -199,9 +263,18 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button7.isDisabled()){
-					playerMoves.add(7);
-					buttonsMap.remove(button7);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(6, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button7.setDisabled(true);
 			}
@@ -211,9 +284,18 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button8.isDisabled()){
-					playerMoves.add(8);
-					buttonsMap.remove(button8);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(7, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button8.setDisabled(true);
 			}
@@ -223,9 +305,18 @@ public class GameScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(!button9.isDisabled()){
-					playerMoves.add(9);
-					buttonsMap.remove(button9);
-					computer.play(playerMoves,buttonsMap);
+					board.makeMove(8, humanPlayer);
+					if(!board.isGameOver()){
+						int computerMove = computerPlayer.play(board);
+						board.makeMove(computerMove, computerPlayer);
+						ComputerButtonControl.clickButton(computerMove, buttonsMap,board);
+					}
+					else{
+						if(board.getWinner() == null){
+							Gdx.app.log(TicTacToe.LOG, "Game DRAW");
+							((Game) Gdx.app.getApplicationListener()).setScreen(new ResultScreen("Game DRAW"));
+						}
+					}
 				}
 				button9.setDisabled(true);
 			}
