@@ -113,8 +113,6 @@ public class MainMenu implements Screen{
 		table.align(Align.center).align(Align.top).padTop(100);
 		table.add(heading).padBottom(100).row();
 		
-		table.add(buttonX);
-		table.add(buttonO).row();
 		table.add(buttonPlay);
 		
 		stage.addActor(table);

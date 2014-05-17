@@ -80,7 +80,7 @@ public class GameScreen implements Screen{
 		skin = new Skin(Gdx.files.internal("ui/gameSkin.json"),atlas);
 		blackFont = Assets.manager.get(Assets.fontBlack);
 		
-		heading = new Label("You can't beat",skin);
+		heading = new Label("PLAYING GAME",skin);
 		batch = new SpriteBatch();
 		background = Assets.manager.get(Assets.background);
 		background.setFilter(TextureFilter.Linear, TextureFilter.Linear);
